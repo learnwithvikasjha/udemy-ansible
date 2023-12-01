@@ -15,6 +15,12 @@ pip install --upgrade pip
 pip install boto boto3 ansible
 ```
 
+# Install amazon.aws collection
+
+```
+ansible-galaxy collection install amazon.aws
+```
+
 # Setting up AWS Credentials
 You will need to create a user in IAM and then generate key/token for the user. You will need to set these two environment variables on the controller node. 
 
