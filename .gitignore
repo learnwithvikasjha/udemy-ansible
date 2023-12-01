@@ -1,1 +1,3 @@
-/home/ansible/udemy-ansible/18-managing-aws-cloud/02-creating-ec2/hosts
+# Exclude hosts file
+/18-managing-aws-cloud/02-creating-ec2/hosts
+
