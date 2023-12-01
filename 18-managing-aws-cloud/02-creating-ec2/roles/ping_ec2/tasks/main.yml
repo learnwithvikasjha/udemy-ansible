@@ -1,0 +1,2 @@
+- name: ping newly created ec2
+  ping:

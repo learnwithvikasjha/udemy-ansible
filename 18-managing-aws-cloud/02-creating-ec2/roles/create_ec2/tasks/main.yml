@@ -1,0 +1,30 @@
+- name: start an instance with a public IP address
+  amazon.aws.ec2_instance:
+    region: "{{ region }}"
+    name: "public-compute-instance"
+    key_name: "{{ key_name }}"
+    instance_type: t2.micro
+    security_group: sg-0e894f1e765cb75a9
+    image_id: "{{ image_id }}"
+    state: running
+    network:
+      assign_public_ip: true
+    tags:
+      Environment: Testing
+    wait: true
+  register: ec2_result
+
+- name: show private ip address of ec2
+  debug:
+    msg: "{{ ec2_result.instances[0].private_ip_address}}"
+
+- name: set ec2 private ip address in a fact
+  set_fact:
+    ec2_private_ip_address: "{{ ec2_result.instances[0].private_ip_address}}"
+    ec2_public_ip_address: "{{ ec2_result.instances[0].public_ip_address}}"
+
+- name: Add a host alias that we reach through a tunnel (Ansible 1.9 and older)
+  ansible.builtin.add_host:
+    hostname: '{{ ec2_public_ip_address }}'
+    ansible_user: ec2-user
+    ansible_ssh_private_key_file: "{{ key_file_name }}"

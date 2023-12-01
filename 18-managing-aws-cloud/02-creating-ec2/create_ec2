@@ -1,0 +1,24 @@
+---
+- name: create EC2 instance
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  environment:
+    AWS_ACCESS_KEY_ID: "{{ AWS_ACCESS_KEY_ID }}"
+    AWS_SECRET_ACCESS_KEY: "{{ AWS_SECRET_ACCESS_KEY }}"
+    ANSIBLE_HOST_KEY_CHECKING: false
+  vars:
+    region: us-east-1
+    image_id: ami-05c13eab67c5d8861
+    key_name: "my_keypair_1"
+    key_file_name: /tmp/aws_ssh_rsa
+
+  roles:
+    - create_ec2_key
+    - create_ec2
+
+- name: ping EC2
+  hosts: "{{ hostvars['localhost']['ec2_public_ip_address'] }}"
+  roles:
+    - ping_ec2
+       

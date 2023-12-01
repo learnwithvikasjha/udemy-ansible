@@ -1,0 +1,7 @@
+- name: create a new EC2 key pair, returns generated private key
+  amazon.aws.ec2_key:
+    region: "{{ region }}"
+    name: "{{ key_name }}"
+    key_type: rsa
+    file_name: "{{ key_file_name }}"
+  register: aws_ec2_key_pair
