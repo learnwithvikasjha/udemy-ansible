@@ -1,0 +1,8 @@
+---
+- name: install setup
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: creating bug in jira
+      debug:
+        msg: "bug created"

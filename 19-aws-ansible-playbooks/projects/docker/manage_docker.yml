@@ -1,0 +1,52 @@
+---
+- name: Manage Docker Containers
+  hosts: 192.168.1.19
+  tasks:
+    - name: Ensure Docker is installed
+      become: yes
+      package:
+        name: docker-ce
+        state: present
+      tags: install_docker
+
+    - name: Start Docker service
+      become: yes
+      service:
+        name: docker
+        state: started
+      tags: install_docker
+
+    - name: Pull Docker image
+      become: yes
+      docker_image:
+        name: "{{ docker_image }}:{{ docker_tag }}"
+        source: pull
+      tags: run_container
+
+    - name: Run Docker container
+      become: yes
+      docker_container:
+        name: "{{ container_name }}"
+        image: "{{ docker_image}}:{{ docker_tag }}"
+        state: started
+        networks:
+          - name: my_network
+        ports:
+          - "{{ host_port }}:{{ guest_port }}"
+      tags: run_container
+
+    - name: Stop Docker container
+      become: yes
+      docker_container:
+        name: "{{ container_name }}"
+        state: stopped
+      tags: stop_container
+
+    - name: Remove Docker container
+      become: yes
+      docker_container:
+        name: "{{ container_name }}"
+        state: absent
+      tags: remove_container
+
+

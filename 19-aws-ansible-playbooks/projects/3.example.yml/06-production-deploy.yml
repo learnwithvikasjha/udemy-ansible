@@ -1,0 +1,8 @@
+---
+- name: install setup
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: deploy to prod.
+      debug:
+        msg: "deployed to prod"

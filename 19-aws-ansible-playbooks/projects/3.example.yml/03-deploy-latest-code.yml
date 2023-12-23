@@ -1,0 +1,8 @@
+---
+- name: install setup
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: deploying code
+      debug:
+        msg: "deployed code."

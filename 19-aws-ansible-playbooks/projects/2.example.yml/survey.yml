@@ -1,0 +1,10 @@
+---
+- name: Install the software
+  hosts: all
+  become: yes
+  tasks:
+    - name: install a software
+      package:
+        name: "{{ requested_software }}"
+        state: "{{ type }}"
+      delegate_to: "{{ ip }}"

@@ -1,0 +1,12 @@
+---
+- name: demo playbook
+  hosts: all
+  become: yes
+  vars:
+    username: ""
+  tasks:
+    - name: Run demo task of pinging servers only
+      ping:
+    - name: debug task
+      debug:
+        msg: "my username: {{ username }}"

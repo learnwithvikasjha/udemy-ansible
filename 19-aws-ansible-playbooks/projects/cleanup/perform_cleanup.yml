@@ -1,0 +1,12 @@
+---
+- name: Remove /home/testfile on localhost
+  hosts: 192.168.1.19
+  become: yes  # Use elevated privileges to remove the file
+
+  tasks:
+    - name: Remove the /home/testfile
+      file:
+        path: /home/testfile
+        state: absent
+        force: true
+

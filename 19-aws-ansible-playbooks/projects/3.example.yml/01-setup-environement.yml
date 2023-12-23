@@ -1,0 +1,8 @@
+---
+- name: install setup
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: setting up environment.
+      debug:
+        msg: "environment is setup."
